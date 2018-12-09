@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Globalization.Models;
 
 namespace Globalization.Data
 {
@@ -12,5 +13,6 @@ namespace Globalization.Data
             : base(options)
         {
         }
+        public DbSet<Globalization.Models.User> User { get; set; }
     }
 }
