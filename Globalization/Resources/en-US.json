@@ -1,5 +1,12 @@
 {
   "DescriptionPage": "Your application description page.",
   "ContactPage": "Your contact page.",
-  "HomePage": "Home Page"
+  "HomePage": "Home Page",
+  "CreateUser": "Create User",
+  "BackToList": "Back to List",
+  "Create": "Create",
+  "FirstName": "First Name",
+  "LastName": "Last Name",
+  "Age": "Age",
+  "Email": "Email"
 }

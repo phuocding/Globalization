@@ -7,15 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Globalization.Data;
 using Globalization.Models;
+using Microsoft.Extensions.Localization;
 
 namespace Globalization.Controllers
 {
     public class UsersController : Controller
     {
+        private readonly IStringLocalizer<UsersController> _localizer;
         private readonly ApplicationDbContext _context;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(IStringLocalizer<UsersController> localizer, ApplicationDbContext context)
         {
+            _localizer = localizer;
             _context = context;
         }
 

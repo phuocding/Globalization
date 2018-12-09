@@ -1,5 +1,12 @@
 ﻿{
   "DescriptionPage": "Giới thiệu về chúng tôi.",
   "ContactPage": "Liên hệ với chúng tôi.",
-  "HomePage": "Trang chủ"
+  "HomePage": "Trang chủ",
+  "CreateUser": "Tạo người dùng",
+  "BackToList": "Trở về danh sách",
+  "Create": "Tạo mới",
+  "FirstName": "Họ",
+  "LastName": "Tên",
+  "Age": "Tuổi",
+  "Email": "Hộp thư điện tử"
 }

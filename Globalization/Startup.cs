@@ -13,6 +13,8 @@ using Globalization.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Globalization;
+using Microsoft.AspNetCore.Routing.Constraints;
+using Microsoft.AspNetCore.Localization;
 
 namespace Globalization
 {
@@ -30,8 +32,19 @@ namespace Globalization
         {
             services.AddJsonLocalization(options => options.ResourcesPath = "Resources");
             services.AddMvc().AddViewLocalization();
-            //CultureInfo.CurrentCulture = new CultureInfo("en-US");
-            CultureInfo.CurrentCulture = new CultureInfo("vn-VN");
+            //services.AddScoped<LanguageActionFilter>();
+            var supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("en-US"),
+                new CultureInfo("vn-VN"),
+            };
+            services.Configure<RequestLocalizationOptions>(
+            options =>
+            {
+                options.DefaultRequestCulture = new RequestCulture(culture: "vn-VN", uiCulture: "vn-VN");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -71,6 +84,15 @@ namespace Globalization
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                name: "cultureRoute",
+                template: "{culture}/{controller}/{action}/{id?}",
+                defaults: new { controller = "Home", action = "Index" },
+                constraints: new
+                {
+                    culture = new RegexRouteConstraint("^[a-z]{2}(?:-[A-Z]{2})?$")
+                });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
