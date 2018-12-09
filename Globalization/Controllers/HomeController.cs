@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Globalization.Models;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Globalization.Controllers
 {
@@ -46,5 +47,18 @@ namespace Globalization.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        private string _currentLanguage;
+        private string CurrentLanguage
+        { get
+            {
+            if (!string.IsNullOrEmpty(_currentLanguage)) return _currentLanguage;
+            if (string.IsNullOrEmpty(_currentLanguage))
+            {
+                var feature = HttpContext.Features.Get<IRequestCultureFeature>();
+                _currentLanguage = feature.RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+            }
+            return _currentLanguage; } }
+        public ActionResult RedirectToDefaultCulture() { var culture = CurrentLanguage; if (culture != "en") culture = "en"; return RedirectToAction("Index", new { culture }); }
     }
 }
